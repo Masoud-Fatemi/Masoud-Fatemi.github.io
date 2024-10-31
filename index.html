@@ -87,7 +87,7 @@
     <div class="row">
 
       <!-- Left column -->
-      <div class="col-md-3">
+      <div class="col-md-3" id="left-column">
         <!-- Left card -->
         <div class="card" style="border: none;">
 
@@ -342,43 +342,66 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const cards = {
-        'nav-home': 'home-content',
-        'nav-publications': 'publications-content',
-        'nav-links': 'links-content',
-        'nav-gallery': 'gallery-content'
-      };
+  document.addEventListener('DOMContentLoaded', function () {
+    const cards = {
+      'nav-home': 'home-content',
+      'nav-publications': 'publications-content',
+      'nav-links': 'links-content',
+      'nav-gallery': 'gallery-content'
+    };
 
-      const navItems = document.querySelectorAll('.nav-item a');
+    const navItems = document.querySelectorAll('.nav-item a');
+    const leftColumn = document.getElementById('left-column');
 
-      Object.keys(cards).forEach(navItem => {
-        document.getElementById(navItem).addEventListener('click', function (event) {
-          // Prevent default link behavior
-          event.preventDefault();
+    Object.keys(cards).forEach(navItem => {
+      document.getElementById(navItem).addEventListener('click', function (event) {
+        // Prevent default link behavior
+        event.preventDefault();
 
-          // Remove active class from all nav items
-          navItems.forEach(item => {
-            item.classList.remove('active');
-          });
-
-          // Add active class to the clicked nav item
-          event.currentTarget.classList.add('active');
-
-          // Hide all cards
-          Object.values(cards).forEach(card => {
-            document.getElementById(card).style.display = 'none';
-          });
-
-          // Show the selected card
-          document.getElementById(cards[navItem]).style.display = 'block';
+        // Remove active class from all nav items
+        navItems.forEach(item => {
+          item.classList.remove('active');
         });
-      });
 
-      // Initially show the home content
-      document.getElementById('home-content').style.display = 'block';
+        // Add active class to the clicked nav item
+        event.currentTarget.classList.add('active');
+
+        // Hide all cards
+        Object.values(cards).forEach(card => {
+          document.getElementById(card).style.display = 'none';
+        });
+
+        // Show the selected card
+        document.getElementById(cards[navItem]).style.display = 'block';
+
+        // Check if screen is small (<= 768px) and hide/show left column accordingly
+        if (window.innerWidth <= 768) {
+          if (navItem === 'nav-home') {
+            leftColumn.classList.remove('d-none');  // Show left column on "Home"
+          } else {
+            leftColumn.classList.add('d-none');     // Hide left column on other pages
+          }
+        } else {
+          // Ensure left column is always visible on larger screens
+          leftColumn.classList.remove('d-none');
+        }
+      });
     });
-  </script>
+
+    // Initially show the home content
+    document.getElementById('home-content').style.display = 'block';
+  });
+
+  // Optional: Handle window resize to show left column on larger screens if needed
+  window.addEventListener('resize', function () {
+    const leftColumn = document.getElementById('left-column');
+    if (window.innerWidth > 768) {
+      leftColumn.classList.remove('d-none');
+    }
+  });
+</script>
+
+  <!-- for Viewing Full Image -->
   <script>
     function openModal(imageSrc, description) {
       const modalImage = document.getElementById('modalImage');
@@ -389,6 +412,7 @@
       modal.show();
     }
   </script>
+  <!-- for the animation in navbar -->
   <script>
     const canvas = document.getElementById('particleCanvas');
     const ctx = canvas.getContext('2d');
