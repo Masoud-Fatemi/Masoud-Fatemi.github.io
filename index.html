@@ -334,7 +334,7 @@
             <!-- gallery item 4-->
             <div class="col-sm-6 col-md-4">
               <div class="card h-100" onclick="openModal('img/4_Jonesuu_DRDHUM_Dec_2024.jpg', 
-              'DRDHUM Pre-conference workshop, FIN-CLARIAH tools to make sense of web data')">
+              'DRDHUM Pre-conference workshop, FIN-CLARIAH tools to make sense of web data.<br><a href=&quot;https://www.dariah.fi/tools-to-make-sense-of-web-data-a-workshop-report-with-christmas-presents&quot; target=&quot;_blank&quot; style=&quot;color: blue;&quot;>https://www.dariah.fi/tools-to-make-sense-of-web-data-a-workshop-report-with-christmas-presents</a>')">
                 <img src="img/4_Jonesuu_DRDHUM_Dec_2024.jpg" class="card-img-top" alt="Event 1">
                 <div class="card-body">
                   <h5 class="card-title">DRDHUM Pre-conference workshop</h5>
@@ -476,7 +476,7 @@
       const modalImage = document.getElementById('modalImage');
       const modalDescription = document.getElementById('modalDescription');
       modalImage.src = imageSrc;
-      modalDescription.textContent = description;
+      modalDescription.innerHTML = description; // Change to innerHTML to render HTML
       const modal = new bootstrap.Modal(document.getElementById('imageModal'));
       modal.show();
     }
